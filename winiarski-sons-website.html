@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winiarski & Son's Accounting and Tax Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #1a2744;
+      --navy-mid: #243258;
+      --gold: #b8922a;
+      --gold-light: #d4a93c;
+      --gold-pale: #f5ead0;
+      --cream: #faf8f4;
+      --warm-white: #ffffff;
+      --text: #1e2535;
+      --text-muted: #5a6275;
+      --border: #e2ddd5;
+      --shadow: rgba(26,39,68,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(26,39,68,0.97);
+      backdrop-filter: blur(10px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+      border-bottom: 1px solid rgba(184,146,42,0.25);
+    }
+    .nav-brand {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-brand .firm-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .nav-brand .firm-sub {
+      font-size: 0.65rem;
+      color: var(--gold-light);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .nav-links {
+      display: flex; gap: 2.2rem; list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 0.55rem 1.4rem;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ── HAMBURGER ── */
+    .hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px;
+      background: none; border: none; cursor: pointer;
+      padding: 4px; z-index: 1100;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── MOBILE MENU DRAWER ── */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 72px; left: 0; right: 0;
+      background: rgba(26,39,68,0.99);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184,146,42,0.25);
+      z-index: 999;
+      padding: 0;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .mobile-menu.open {
+      max-height: 420px;
+      padding: 1.2rem 0 1.8rem;
+    }
+    .mobile-menu ul {
+      list-style: none;
+      display: flex; flex-direction: column;
+    }
+    .mobile-menu ul li a {
+      display: block;
+      padding: 0.85rem 7%;
+      text-decoration: none;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.95rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .mobile-menu ul li a:hover { color: var(--gold-light); background: rgba(184,146,42,0.06); }
+    .mobile-menu .mobile-cta {
+      margin: 1.2rem 7% 0;
+      display: block; text-align: center;
+      background: var(--gold); color: #fff;
+      padding: 0.85rem; border-radius: 3px;
+      text-decoration: none; font-weight: 600;
+      font-size: 0.9rem; letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .mobile-menu .mobile-cta:hover { background: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      padding: 72px 5% 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 60px,
+          rgba(184,146,42,0.04) 60px,
+          rgba(184,146,42,0.04) 61px
+        );
+      pointer-events: none;
+    }
+    .hero-bg-circle {
+      position: absolute; right: -120px; top: 50%;
+      transform: translateY(-50%);
+      width: 680px; height: 680px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,146,42,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 680px;
+      position: relative; z-index: 1;
+      animation: fadeUp 0.9s ease both;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.4rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 28px; height: 2px;
+      background: var(--gold);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.18;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.72;
+      max-width: 520px;
+      margin-bottom: 2.4rem;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 18px rgba(184,146,42,0.3);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(184,146,42,0.35); }
+    .btn-outline {
+      background: transparent;
+      color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 0.85rem 2rem;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold-light); background: rgba(184,146,42,0.08); }
+
+    .hero-badges {
+      display: flex; gap: 2.5rem; margin-top: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .hero-badge { text-align: center; }
+    .hero-badge .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--gold-light);
+      line-height: 1;
+    }
+    .hero-badge .lbl {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+    .hero-divider {
+      width: 1px; background: rgba(255,255,255,0.15);
+      align-self: stretch; margin: 0.2rem 0;
+    }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      background: var(--gold);
+      padding: 1rem 5%;
+      display: flex; align-items: center; justify-content: center;
+      gap: 3rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 600;
+      color: #fff; letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .trust-item svg { flex-shrink: 0; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 90px 5%; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 0.9rem;
+    }
+    .section-eyebrow::before {
+      content: ''; display: block;
+      width: 22px; height: 2px; background: var(--gold);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.2; margin-bottom: 1.1rem;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-lead {
+      font-size: 1rem; color: var(--text-muted);
+      line-height: 1.72; max-width: 560px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--warm-white);
+    }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-img-placeholder {
+      width: 100%; aspect-ratio: 4/5;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+      border-radius: 4px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+    }
+    .about-img-placeholder .placeholder-icon {
+      font-size: 3rem; opacity: 0.3;
+    }
+    .about-img-placeholder p {
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500;
+    }
+    .about-accent-box {
+      position: absolute;
+      bottom: -24px; right: -24px;
+      background: var(--gold);
+      padding: 1.5rem 2rem;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(184,146,42,0.3);
+      text-align: center;
+    }
+    .about-accent-box .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem; font-weight: 700; color: #fff;
+      line-height: 1;
+    }
+    .about-accent-box .lbl {
+      font-size: 0.72rem; color: rgba(255,255,255,0.85);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+    .about-text .family-note {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold-pale);
+      border-left: 3px solid var(--gold);
+      padding: 0.75rem 1.1rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.88rem; color: var(--navy);
+      font-style: italic; margin-top: 1.6rem;
+      line-height: 1.5;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      background: var(--cream);
+    }
+    .services-header {
+      max-width: 1200px; margin: 0 auto 3.5rem;
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      justify-content: space-between; align-items: flex-end;
+    }
+    .services-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem 1.8rem;
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-card:hover {
+      box-shadow: 0 12px 40px var(--shadow);
+      transform: translateY(-3px);
+      border-color: rgba(184,146,42,0.3);
+    }
+    .service-icon {
+      width: 48px; height: 48px;
+      background: var(--gold-pale);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.2rem;
+    }
+    .service-icon svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.8; }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.7rem;
+    }
+    .service-card p {
+      font-size: 0.88rem; color: var(--text-muted);
+      line-height: 1.68;
+    }
+    .service-card ul {
+      list-style: none; margin-top: 1rem;
+    }
+    .service-card ul li {
+      font-size: 0.83rem; color: var(--text-muted);
+      padding: 0.22rem 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .service-card ul li::before {
+      content: ''; width: 5px; height: 5px;
+      background: var(--gold); border-radius: 50%; flex-shrink: 0;
+    }
+    .service-badge {
+      display: inline-block;
+      background: var(--navy);
+      color: #fff; font-size: 0.65rem;
+      font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 20px;
+      margin-top: 1rem;
+    }
+
+    /* ── WHY US ── */
+    .why {
+      background: var(--navy);
+      position: relative; overflow: hidden;
+    }
+    .why::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg, transparent, transparent 40px,
+        rgba(184,146,42,0.03) 40px, rgba(184,146,42,0.03) 41px
+      );
+    }
+    .why-inner {
+      max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .why .section-title { color: #fff; }
+    .why .section-lead { color: rgba(255,255,255,0.6); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .why-card {
+      border: 1px solid rgba(184,146,42,0.2);
+      border-radius: 6px;
+      padding: 2rem;
+      background: rgba(255,255,255,0.04);
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .why-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(184,146,42,0.45);
+    }
+    .why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 700;
+      color: rgba(184,146,42,0.2);
+      line-height: 1; margin-bottom: 0.8rem;
+    }
+    .why-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: #fff; font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+    .why-card p {
+      font-size: 0.86rem; color: rgba(255,255,255,0.55);
+      line-height: 1.68;
+    }
+
+    /* ── TEAM / BIO ── */
+    .team {
+      background: var(--warm-white);
+    }
+    .team-header {
+      max-width: 1200px; margin: 0 auto 3.5rem;
+    }
+    .team-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .team-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--cream);
+      transition: box-shadow 0.25s;
+    }
+    .team-card:hover { box-shadow: 0 12px 40px var(--shadow); }
+    .team-photo {
+      width: 100%; aspect-ratio: 1.2/1;
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 0.8rem;
+    }
+    .team-photo .ph-avatar {
+      width: 90px; height: 90px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      border: 2px dashed rgba(184,146,42,0.4);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .team-photo .ph-avatar svg { width: 40px; height: 40px; stroke: rgba(255,255,255,0.3); fill: none; stroke-width: 1.5; }
+    .team-photo p {
+      font-size: 0.72rem; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .team-info { padding: 1.6rem; }
+    .team-info .placeholder-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 0.2rem;
+    }
+    .team-info .placeholder-title {
+      font-size: 0.78rem; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .team-info .placeholder-bio {
+      font-size: 0.86rem; color: var(--text-muted);
+      line-height: 1.7;
+      background: repeating-linear-gradient(
+        to bottom, var(--border) 0, var(--border) 1px,
+        transparent 1px, transparent 1.5rem
+      );
+      min-height: 4.5rem;
+      border-radius: 3px;
+      padding: 0.5rem 0.7rem;
+      font-style: italic;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--cream);
+    }
+    .testimonials-header {
+      max-width: 1200px; margin: 0 auto 3.5rem;
+    }
+    .testimonials-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      position: relative;
+    }
+    .testimonial-card .quote-mark {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem; line-height: 1;
+      color: var(--gold-pale);
+      font-style: italic;
+      pointer-events: none;
+    }
+    .stars {
+      display: flex; gap: 3px; margin-bottom: 1rem;
+    }
+    .stars span {
+      color: var(--gold); font-size: 1rem;
+    }
+    .testimonial-text {
+      font-size: 0.9rem; color: var(--text-muted);
+      line-height: 1.72; font-style: italic;
+      margin-bottom: 1.5rem;
+      background: repeating-linear-gradient(
+        to bottom, var(--border) 0, var(--border) 1px,
+        transparent 1px, transparent 1.5rem
+      );
+      min-height: 6rem;
+      border-radius: 3px;
+      padding: 0.5rem 0.7rem;
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 0.9rem;
+    }
+    .author-avatar {
+      width: 42px; height: 42px;
+      background: var(--gold-pale);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .author-avatar span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700; color: var(--gold);
+    }
+    .author-name {
+      font-weight: 600; font-size: 0.9rem; color: var(--navy);
+    }
+    .author-biz {
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--warm-white);
+    }
+    .contact-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 5rem; align-items: start;
+    }
+    .contact-info h2 { margin-bottom: 1.2rem; }
+    .contact-details { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.4rem; }
+    .contact-detail {
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .detail-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--gold-pale);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .detail-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 2; }
+    .detail-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .detail-text strong { display: block; color: var(--navy); font-weight: 600; font-size: 0.9rem; margin-bottom: 0.15rem; }
+
+    .contact-form {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.5rem;
+    }
+    .contact-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--navy);
+      margin-bottom: 1.8rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: 0.78rem;
+      font-weight: 600; color: var(--navy);
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 0.45rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.72rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      background: var(--warm-white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,146,42,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      width: 100%;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      padding: 0.95rem;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand .firm-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: #fff; margin-bottom: 0.2rem;
+    }
+    .footer-brand .firm-dba {
+      font-size: 0.72rem; color: var(--gold-light);
+      letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.84rem; color: rgba(255,255,255,0.5);
+      line-height: 1.68; max-width: 260px;
+    }
+    .footer-col h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem; font-weight: 600;
+      color: #fff; margin-bottom: 1rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+    }
+    .footer-col ul li a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.84rem;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold-light); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p {
+      font-size: 0.78rem; color: rgba(255,255,255,0.35);
+    }
+    .footer-bottom .dba-note {
+      font-size: 0.72rem; color: rgba(255,255,255,0.25);
+      font-style: italic;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .about-accent-box { right: 0; bottom: -16px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .mobile-menu { display: block; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 60px 5%; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-badges { gap: 1.5rem; }
+      .trust-bar { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <div class="nav-brand">
+    <span class="firm-name">Winiarski &amp; Son's</span>
+    <span class="firm-sub">Accounting &amp; Tax Services</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#team">Our Team</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Free Consultation</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#services" class="mobile-nav-link">Services</a></li>
+    <li><a href="#about" class="mobile-nav-link">About</a></li>
+    <li><a href="#team" class="mobile-nav-link">Our Team</a></li>
+    <li><a href="#testimonials" class="mobile-nav-link">Clients</a></li>
+    <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+  </ul>
+  <a href="#contact" class="mobile-cta mobile-nav-link">Free Consultation</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="home">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Trusted Since [Year] · Western New York</div>
+    <h1>Where <em>Family Values</em> Meet Financial Expertise</h1>
+    <p class="hero-desc">
+      From personal tax returns to complex corporate filings and full-service bookkeeping —
+      we deliver the focused attention of a family firm with the depth of a seasoned practice.
+      Serving individuals, businesses, and nonprofits across Western New York.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Schedule a Consultation</a>
+      <a href="#services" class="btn-outline">Explore Our Services</a>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <div class="num">[##]+</div>
+        <div class="lbl">Years Combined Experience</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-badge">
+        <div class="num">[###]+</div>
+        <div class="lbl">Returns Filed Annually</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-badge">
+        <div class="num">3</div>
+        <div class="lbl">Distinct Client Sectors</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TRUST BAR ══ -->
+<div class="trust-bar">
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    Corporate &amp; Business Tax
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    Not-for-Profit Specialists
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    Personal Tax Returns
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    Full-Service Bookkeeping
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    Family-Owned &amp; Operated
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-visual fade-up">
+      <div class="about-img-placeholder">
+        <div class="placeholder-icon">📸</div>
+        <p>Professional Photo of the Team</p>
+      </div>
+      <div class="about-accent-box">
+        <div class="num">[##]</div>
+        <div class="lbl">Years Serving<br>Western NY</div>
+      </div>
+    </div>
+    <div class="about-text fade-up">
+      <div class="section-eyebrow">Our Story</div>
+      <h2 class="section-title">A Local Firm Built on <em>Relationships</em></h2>
+      <p class="section-lead">
+        Winiarski &amp; Son's Accounting and Tax Services began as many great firms do — around a kitchen table, with a commitment to doing right by our neighbors. Today, operating as Envirocon Financial LLC, we bring that same personal dedication to every engagement.
+      </p>
+      <br>
+      <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.72;">
+        <!-- PLACEHOLDER: Insert your firm's origin story, founding year, and values here. 
+             Include a sentence about the father-son relationship, what drives the practice, 
+             and your connection to the Western New York community. 2-3 paragraphs recommended. -->
+        <em style="color:var(--border);">[Owner bio and firm history placeholder — replace with your story here. Describe when the firm was founded, the family background, your approach to client service, and what sets Winiarski &amp; Son's apart from larger, impersonal firms. Consider including community involvement, professional credentials, and your philosophy around building long-term client relationships.]</em>
+      </p>
+      <div class="family-note">
+        ✦ &nbsp;"We treat every client's finances the way we treat our own — with care, precision, and complete transparency."
+        <br><small style="font-style:normal; color:var(--text-muted); margin-top:0.3rem; display:block;">— [Founder Name], Founding Partner</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="services" id="services">
+  <div class="services-header fade-up">
+    <div>
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-title">Comprehensive Services,<br><em>Personal Attention</em></h2>
+    </div>
+    <p class="section-lead">
+      From the simplest 1040 to complex corporate structures and nonprofit compliance — we handle it all under one roof, year-round.
+    </p>
+  </div>
+  <div class="services-grid">
+
+    <!-- Business Tax -->
+    <div class="service-card fade-up">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Corporate &amp; Business Tax</h3>
+      <p>Strategic tax preparation and planning for businesses of all sizes, structured to minimize liability and support growth.</p>
+      <ul>
+        <li>C-Corp &amp; S-Corp Returns (1120/1120-S)</li>
+        <li>Partnership Returns (1065)</li>
+        <li>LLC Tax Filings</li>
+        <li>Multi-state Tax Compliance</li>
+        <li>Estimated Tax Planning</li>
+      </ul>
+      <span class="service-badge">Year-Round Service</span>
+    </div>
+
+    <!-- Not for Profit -->
+    <div class="service-card fade-up">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+      </div>
+      <h3>Not-for-Profit Organizations</h3>
+      <p>Dedicated support for 501(c)(3) and other nonprofits — keeping your mission funded and your compliance in order.</p>
+      <ul>
+        <li>Form 990 Preparation (all variants)</li>
+        <li>State Charitable Registration</li>
+        <li>Exempt Status Maintenance</li>
+        <li>Board Financial Reporting</li>
+        <li>Grant Compliance Support</li>
+      </ul>
+      <span class="service-badge">Nonprofit Specialists</span>
+    </div>
+
+    <!-- Personal Tax -->
+    <div class="service-card fade-up">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <h3>Personal Tax Returns</h3>
+      <p>Thorough, accurate individual tax preparation with a focus on finding every deduction you've earned.</p>
+      <ul>
+        <li>Federal &amp; State 1040 Returns</li>
+        <li>Itemized Deductions &amp; Credits</li>
+        <li>Investment Income &amp; Capital Gains</li>
+        <li>Self-Employment Income (Sch. C)</li>
+        <li>Prior Year Amendments</li>
+      </ul>
+      <span class="service-badge">All Complexities Welcome</span>
+    </div>
+
+    <!-- Bookkeeping -->
+    <div class="service-card fade-up">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 0 3-3h7z"/></svg>
+      </div>
+      <h3>Full-Service Bookkeeping</h3>
+      <p>Keep your financials clean, current, and decision-ready with our ongoing bookkeeping and accounting support.</p>
+      <ul>
+        <li>Monthly / Quarterly Reconciliation</li>
+        <li>Accounts Payable &amp; Receivable</li>
+        <li>Financial Statement Preparation</li>
+        <li>QuickBooks Setup &amp; Support</li>
+        <li>Cash Flow Reporting</li>
+      </ul>
+      <span class="service-badge">Monthly Engagements Available</span>
+    </div>
+
+    <!-- Tax Planning -->
+    <div class="service-card fade-up">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <h3>Tax Planning &amp; Strategy</h3>
+      <p>Proactive planning throughout the year so there are no surprises come filing season — and more money stays in your hands.</p>
+      <ul>
+        <li>Year-Round Advisory</li>
+        <li>Entity Structure Consultation</li>
+        <li>Retirement &amp; Benefit Planning</li>
+        <li>Real Estate Tax Considerations</li>
+        <li>Life Event Tax Planning</li>
+      </ul>
+      <span class="service-badge">Proactive Approach</span>
+    </div>
+
+    <!-- IRS Representation -->
+    <div class="service-card fade-up">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>IRS &amp; State Representation</h3>
+      <p>Facing an audit or notice? We stand beside you — communicating directly with taxing authorities on your behalf.</p>
+      <ul>
+        <li>IRS Audit Representation</li>
+        <li>NYS Tax Notice Response</li>
+        <li>Back Tax Assistance</li>
+        <li>Payment Plan Negotiation</li>
+        <li>Penalty Abatement Requests</li>
+      </ul>
+      <span class="service-badge">We Handle the Stress</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ WHY US ══ -->
+<section class="why">
+  <div class="why-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow" style="color:var(--gold-light);">Why Winiarski &amp; Son's</div>
+      <h2 class="section-title">The Difference a <em>Family Firm</em> Makes</h2>
+      <p class="section-lead">No 800 numbers. No junior staff handoffs. When you work with us, you get us — every time.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card fade-up">
+        <div class="why-num">01</div>
+        <h4>Direct Partner Access</h4>
+        <p>Your calls are answered by the people who know your file. We don't pass clients off to staff you've never met.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">02</div>
+        <h4>Western New York Roots</h4>
+        <p>We live and work in this community. We understand local business, local properties, and local tax considerations.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">03</div>
+        <h4>Year-Round Relationship</h4>
+        <p>We're not a seasonal shop. Tax questions, bookkeeping questions, life changes — we're available all year long.</p>
+      </div>
+      <div class="why-card fade-up">
+        <div class="why-num">04</div>
+        <h4>Transparent Pricing</h4>
+        <p>No surprise bills. We discuss scope and fees upfront so you always know what to expect before we begin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TEAM ══ -->
+<section class="team" id="team">
+  <div class="team-header fade-up">
+    <div class="section-eyebrow">Meet the Team</div>
+    <h2 class="section-title">The Faces Behind <em>Your Finances</em></h2>
+    <p class="section-lead">A father-and-son team with decades of combined experience and a shared commitment to client success.</p>
+  </div>
+  <div class="team-grid">
+
+    <div class="team-card fade-up">
+      <div class="team-photo">
+        <div class="ph-avatar">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <p>Your Professional Photo Here</p>
+      </div>
+      <div class="team-info">
+        <div class="placeholder-name">[Father's Full Name], [Credentials]</div>
+        <div class="placeholder-title">Founding Partner</div>
+        <div class="placeholder-bio">
+          [Bio placeholder — describe background, years of experience, areas of specialization, education, professional affiliations, and a personal note about founding the firm. 3–5 sentences recommended.]
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card fade-up">
+      <div class="team-photo">
+        <div class="ph-avatar">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <p>Your Professional Photo Here</p>
+      </div>
+      <div class="team-info">
+        <div class="placeholder-name">[Son's Full Name], [Credentials]</div>
+        <div class="placeholder-title">Partner</div>
+        <div class="placeholder-bio">
+          [Bio placeholder — describe education, credentials, professional experience, technical specialties, and what drew you to the family practice. 3–5 sentences recommended.]
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testimonials" id="testimonials">
+  <div class="testimonials-header fade-up">
+    <div class="section-eyebrow">Client Stories</div>
+    <h2 class="section-title">What Our Clients <em>Say</em></h2>
+    <p class="section-lead">Real people. Real results. We let our clients speak for themselves.</p>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card fade-up">
+      <div class="quote-mark">"</div>
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testimonial-text">
+        [Testimonial placeholder — replace with a genuine client quote. Aim for 2–4 sentences that speak to reliability, accuracy, responsiveness, or the value of the relationship. Include a specific service if possible.]
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><span>[I]</span></div>
+        <div>
+          <div class="author-name">[Client First Name] [Last Initial].</div>
+          <div class="author-biz">[Business Name or "Individual Client"] · [City, NY]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card fade-up">
+      <div class="quote-mark">"</div>
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testimonial-text">
+        [Testimonial placeholder — replace with a genuine client quote. Aim for 2–4 sentences that speak to a specific pain point solved — e.g., IRS notice, messy books, confusing nonprofit filing, etc.]
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><span>[I]</span></div>
+        <div>
+          <div class="author-name">[Client First Name] [Last Initial].</div>
+          <div class="author-biz">[Business Name or "Nonprofit Director"] · [City, NY]</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card fade-up">
+      <div class="quote-mark">"</div>
+      <div class="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+      <div class="testimonial-text">
+        [Testimonial placeholder — replace with a genuine client quote. Consider one focused on the personal/family feel — how this firm differs from a chain or big box tax prep service.]
+      </div>
+      <div class="testimonial-author">
+        <div class="author-avatar"><span>[I]</span></div>
+        <div>
+          <div class="author-name">[Client First Name] [Last Initial].</div>
+          <div class="author-biz">[Individual Client] · [City, NY]</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="fade-up">
+      <div class="section-eyebrow">Get in Touch</div>
+      <h2 class="section-title">Let's Talk About <em>Your</em> Situation</h2>
+      <p class="section-lead">
+        There's no one-size-fits-all answer in accounting. Reach out for a no-pressure consultation and let's figure out the best path forward together.
+      </p>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Office Location</strong>
+            [Street Address]<br>[City], NY [ZIP]
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.84a16 16 0 0 0 6.29 6.29l1.14-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Phone</strong>
+            [(###) ###-####]
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Email</strong>
+            [email@yourdomain.com]
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="detail-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="detail-text">
+            <strong>Office Hours</strong>
+            Monday–Friday: [8:00 AM – 5:00 PM]<br>
+            Tax Season Saturdays: [9:00 AM – 1:00 PM]
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form fade-up">
+      <h3>Request a Free Consultation</h3>
+
+      <!-- SUCCESS MESSAGE (hidden until form submitted) -->
+      <div id="formSuccess" style="display:none; text-align:center; padding: 2.5rem 1rem;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">✓</div>
+        <h4 style="font-family:'Playfair Display',serif; color:var(--navy); font-size:1.3rem; margin-bottom:0.6rem;">Message Received!</h4>
+        <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.65;">Thank you for reaching out. We'll be in touch within one business day.</p>
+      </div>
+
+      <!-- ERROR MESSAGE (hidden until error) -->
+      <div id="formError" style="display:none; background:#fff0f0; border:1px solid #f5c2c2; border-radius:4px; padding:0.9rem 1.1rem; margin-bottom:1.2rem; font-size:0.87rem; color:#b03030;">
+        Something went wrong — please try again or email us directly at [email@yourdomain.com].
+      </div>
+
+      <form id="consultForm" style="margin:0;">
+        <!-- ▶ REPLACE "YOUR_FORM_ID" below with your Formspree form ID (e.g. xkgnpqrb) -->
+        <!-- Get yours free at formspree.io → New Form → copy the 8-character ID -->
+        <input type="hidden" name="_formspree_id" value="YOUR_FORM_ID" />
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="first_name" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="last_name" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="john@example.com" required />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" placeholder="(716) 555-0100" />
+        </div>
+        <div class="form-group">
+          <label>Service Needed</label>
+          <select name="service" required>
+            <option value="" disabled selected>Select a service...</option>
+            <option>Personal Tax Return</option>
+            <option>Corporate / Business Tax</option>
+            <option>Not-for-Profit (990)</option>
+            <option>Bookkeeping Services</option>
+            <option>Tax Planning</option>
+            <option>IRS / State Representation</option>
+            <option>Other / Not Sure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Us About Your Situation</label>
+          <textarea name="message" placeholder="Brief description of what you need help with — no worries, nothing is too complicated..."></textarea>
+        </div>
+        <button class="form-submit" type="submit" id="formBtn">Send My Request →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="firm-name">Winiarski &amp; Son's</div>
+      <div class="firm-dba">Accounting &amp; Tax Services</div>
+      <p>A family firm committed to accuracy, accessibility, and lasting client relationships. Serving Western New York with pride.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#services">Business Tax</a></li>
+        <li><a href="#services">Not-for-Profit</a></li>
+        <li><a href="#services">Personal Returns</a></li>
+        <li><a href="#services">Bookkeeping</a></li>
+        <li><a href="#services">Tax Planning</a></li>
+        <li><a href="#services">IRS Representation</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Navigate</h5>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#testimonials">Client Stories</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><a href="#">[City], NY [ZIP]</a></li>
+        <li><a href="#">[(###) ###-####]</a></li>
+        <li><a href="#">[email@domain.com]</a></li>
+        <li><a href="#">[Client Portal Login]</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="yr"></span> Winiarski &amp; Son's Accounting and Tax Services · Envirocon Financial LLC · All Rights Reserved</p>
+    <p class="dba-note">dba Winiarski &amp; Son's Accounting and Tax Services · Western New York</p>
+  </div>
+</footer>
+
+<script>
+  // ── AUTO YEAR ──
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ── HAMBURGER MENU ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  // Close menu when any mobile link is tapped
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close menu on outside tap
+  document.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // ── FORMSPREE CONTACT FORM ──
+  const form = document.getElementById('consultForm');
+  const btn  = document.getElementById('formBtn');
+  const successMsg = document.getElementById('formSuccess');
+  const errorMsg   = document.getElementById('formError');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      const formId = form.querySelector('[name="_formspree_id"]').value;
+
+      // Guard: remind if ID not yet set
+      if (formId === 'YOUR_FORM_ID') {
+        errorMsg.textContent = 'Form not yet connected — please add your Formspree ID. See the comment in the HTML.';
+        errorMsg.style.display = 'block';
+        btn.textContent = 'Send My Request →';
+        btn.disabled = false;
+        return;
+      }
+
+      try {
+        const data = new FormData(form);
+        const response = await fetch(`https://formspree.io/f/${formId}`, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          successMsg.style.display = 'block';
+        } else {
+          const json = await response.json();
+          errorMsg.textContent = json.errors
+            ? json.errors.map(err => err.message).join(', ')
+            : 'Something went wrong. Please try again or email us directly.';
+          errorMsg.style.display = 'block';
+          btn.textContent = 'Send My Request →';
+          btn.disabled = false;
+        }
+      } catch {
+        errorMsg.textContent = 'Network error — please check your connection and try again.';
+        errorMsg.style.display = 'block';
+        btn.textContent = 'Send My Request →';
+        btn.disabled = false;
+      }
+    });
+  }
+
+  // ── SCROLL FADE-IN ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const children = e.target.parentElement?.querySelectorAll('.fade-up');
+        if (children) {
+          let delay = 0;
+          children.forEach(child => {
+            if (!child.classList.contains('visible')) {
+              child.style.transitionDelay = delay + 'ms';
+              delay += 80;
+            }
+          });
+        }
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ── NAV ACTIVE HIGHLIGHT ──
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    const pos = window.scrollY + 100;
+    document.querySelectorAll('section[id], .hero[id]').forEach(sec => {
+      if (pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight) {
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + sec.id
+            ? 'var(--gold-light)' : '';
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
